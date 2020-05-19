@@ -11,10 +11,7 @@ import com.team.app.backend.dto.QuizAddDto;
 import com.team.app.backend.persistance.dao.*;
 import com.team.app.backend.persistance.model.*;
 import com.team.app.backend.service.QuizService;
-import com.team.app.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,11 +38,7 @@ public class QuizServiceImpl implements QuizService {
     @Autowired
     private QuizCategoryDao quizCategoryDao;
 
-    @Autowired
-    MessageSource messageSource;
 
-    @Autowired
-    UserService userService;
 
     @Override
     public Long addDefQuestion(QuestionDefAddDto questionDefAddDto) {
@@ -218,12 +211,11 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void aproveQuiz(Quiz quiz) {
         Notification notification = new Notification();
-        notification.setCategoryId(2L);
+        notification.setCategoryId(1L);
         notification.setUserId(quiz.getUser_id());
-        String[] params = new String[]{quiz.getTitle()};
         if(quiz.getStatus().getName().equals("approved")) {
             quizDao.approve(quiz.getId());
-            notification.setText(messageSource.getMessage("quiz.approved", params, userService.getUserLanguage(quiz.getUser_id())));
+            notification.setText("Quiz approved!)");
         } else {
             notification.setText(quiz.getDescription());
             quizDao.delete(quiz.getId());

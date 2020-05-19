@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 @Service
@@ -36,6 +35,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    @Override
+    public byte[] getUserImage(Long id) {
+        return getUserById(id).getImage();
     }
 
     @Override
@@ -178,19 +182,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changeLanguage(String lang , Long userId) {
-        if(lang.equals("en"))
-            userDao.changeLanguage(1L,userId);
-        else
-            userDao.changeLanguage(2L,userId);
-    }
-    @Override
-    public Locale getUserLanguage(Long id) {
-        String lan = userDao.getUserLanguage(id);
-        if(lan.equals("ua")) {
-            return new Locale("ua", "ua");
-        } else {
-            return Locale.US;
-        }
+    public void uploadImageForUser(Long id, byte[] imageBytes) {
+        User user = getUserById(id);
+        user.setImage(imageBytes);
+        updateUser(new UserUpdateDto(user));
     }
 }

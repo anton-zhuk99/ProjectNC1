@@ -8,7 +8,6 @@ import com.team.app.backend.dto.UserRegistrationDto;
 import com.team.app.backend.persistance.model.User;
 
 import java.util.List;
-import java.util.Locale;
 
 public interface UserService {
 
@@ -16,7 +15,7 @@ public interface UserService {
     //TODO: IMPLEMENT
     String getUserNameById(Long id);
 
-    void changeLanguage(String lang , Long userId);
+    void uploadImageForUser(Long id, byte[] imageBytes);
 
     User updateUser(UserUpdateDto userDto);
 
@@ -26,7 +25,7 @@ public interface UserService {
 
     boolean deleteUser(Long id);
 
-    boolean  checkTokenAvailability(String token);
+    boolean checkTokenAvailability(String token);
 
     User createNewUser(UserCreateDto userCreateDto);
 
@@ -45,5 +44,5 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    Locale getUserLanguage(Long id);
+    byte[] getUserImage(Long id);
 }

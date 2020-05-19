@@ -6,10 +6,7 @@ import com.team.app.backend.persistance.model.Announcement;
 import com.team.app.backend.persistance.model.Notification;
 import com.team.app.backend.service.AnnouncementService;
 import com.team.app.backend.service.NotificationService;
-import com.team.app.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,12 +26,6 @@ public class AnnouncemrntServiceImpl implements AnnouncementService {
 
     @Autowired
     private NotificationService notificationService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    MessageSource messageSource;
 
     @Transactional
     public void createAnnouncement(Announcement announcement) {
@@ -61,12 +52,11 @@ public class AnnouncemrntServiceImpl implements AnnouncementService {
         Notification notification = new Notification();
         notification.setCategoryId(1L);
         notification.setUserId(announcement.getUserId());
-        String[] params = new String[]{announcement.getTitle()};
         if(announcement.getStatusId() == 2) {
             announcementDao.approve(announcement.getId());
-            notification.setText(messageSource.getMessage("announcement.approved", params, userService.getUserLanguage(announcement.getUserId())));
+            notification.setText(String.format("Announcement '%s' approved!)",announcement.getTitle()));
         } else {
-            notification.setText(messageSource.getMessage("announcement.not.approved", params, userService.getUserLanguage(announcement.getUserId())));
+            notification.setText(String.format("Announcement '%s' not approved!",announcement.getTitle()));
             announcementDao.delete(announcement.getId());
         }
         notificationService.create(notification);

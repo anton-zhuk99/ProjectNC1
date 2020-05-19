@@ -103,13 +103,6 @@ public class UserDaoImpl implements UserDao {
                 new Object[]{username},String.class
         );
     }
-    @Override
-    public String getUserLanguage(Long id) {
-        return jdbcTemplate.queryForObject(
-                "SELECT lan.name FROM users INNER JOIN languages lan ON COALESCE(users.lang_id,1) = lan.id WHERE users.id = ? ",
-                new Object[]{id},String.class
-        );
-    }
 
     @Override
     public User getUserByToken(String token) {
@@ -136,13 +129,5 @@ public class UserDaoImpl implements UserDao {
         );
     }
 
-    @Override
-    public void changeLanguage(Long langId , Long userId) {
-        jdbcTemplate.update(
-                "UPDATE users set lang_id = ? WHERE id = ?",
-                langId, userId
-        );
-
-    }
 
 }

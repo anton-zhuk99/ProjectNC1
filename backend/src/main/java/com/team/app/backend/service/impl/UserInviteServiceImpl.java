@@ -4,11 +4,9 @@ import com.team.app.backend.persistance.dao.NotificationDao;
 import com.team.app.backend.persistance.dao.UserInviteDao;
 import com.team.app.backend.persistance.model.Notification;
 import com.team.app.backend.persistance.model.UserInvite;
+import com.team.app.backend.service.NotificationService;
 import com.team.app.backend.service.UserInviteService;
-import com.team.app.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,20 +22,12 @@ public class UserInviteServiceImpl implements UserInviteService {
     @Autowired
     private NotificationDao notificationDao;
 
-    @Autowired
-    MessageSource messageSource;
-
-    @Autowired
-    UserService userService;
-
     @Override
     public void sendUserInvite(UserInvite userInvite) {
         Notification notification = new Notification();
-        notification.setCategoryId(3L);
+        notification.setCategoryId(2L);
         notification.setUserId(userInvite.getUserIdTo());
-        String[] params = new String[]{userInvite.getUsernameFrom()};
-        notification.setText(messageSource.getMessage("friend.invitation", params,
-                userService.getUserLanguage(userInvite.getUserIdTo())));
+        notification.setText(userInvite.getUsernameFrom()+" invites you to friends");
         userInvite.setActivated(false);
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
