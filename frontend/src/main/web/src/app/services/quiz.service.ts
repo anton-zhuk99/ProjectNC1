@@ -117,14 +117,14 @@ export class QuizService {
   }
 
   getSuggestionsQuizzes(): Observable<Quiz[]> {
-    return this.http.get<Quiz[]>(this.quizzesUrl + '/suggestion',
+    return this.http.get<Quiz[]>(this.quizzesUrl + '/suggestion/',
       { headers: this.httpHeader })
       .pipe(
         catchError(this.handleError<Quiz[]>('getSuggestionsQuizzes', []))
       );
   }
   getCompletedQuizes(): Observable<Quiz[]> {
-    return this.http.get<Quiz[]>(this.quizzesUrl + '/completed',
+    return this.http.get<Quiz[]>(this.quizzesUrl + '/completed/',
       { headers: this.httpHeader })
       .pipe(
         catchError(this.handleError<Quiz[]>('getCompletedQuizes', []))

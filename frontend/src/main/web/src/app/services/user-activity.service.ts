@@ -13,8 +13,8 @@ import {UserActivity} from "../entities/user-activity";
   providedIn: 'root'
 })
 export class UserActivityService {
-  // apiURL = 'http://localhost:8080/api';
-  apiURL = '/api/activity';
+  private apiURL = 'http://localhost:8080/api/activity';
+  //private apiURL = '/api/activity';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

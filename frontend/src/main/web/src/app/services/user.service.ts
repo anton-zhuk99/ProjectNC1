@@ -123,7 +123,7 @@ export class UserService {
   }
 
   getUserInvite(): Observable<UserInvite[]> {
-    return this.http.get<UserInvite[]>(this.userUrl + '/invite/' + this.user.id, { headers: new HttpHeaders()
+    return this.http.get<UserInvite[]>(this.userUrl + '/invite/' + 'get', { headers: new HttpHeaders()
         .set('Authorization',  `Bearer_${this.getToken()}`)}).pipe(
       tap(response => {
       }),
@@ -148,7 +148,7 @@ export class UserService {
   }
 
   getFriendsList(): Observable<UserInvite[]> {
-    return this.http.get<UserInvite[]>(this.userUrl + '/invite/friends', { headers: new HttpHeaders()
+    return this.http.get<UserInvite[]>(this.userUrl + '/invite/friends/', { headers: new HttpHeaders()
         .set('Authorization',  `Bearer_${this.getToken()}`)}).pipe(
       tap(response => {
       }),

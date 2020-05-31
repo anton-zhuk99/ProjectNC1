@@ -10,8 +10,8 @@ import {UserService} from "./user.service";
   providedIn: 'root'
 })
 export class AnnouncementService {
-  //apiURL = 'http://localhost:8080/api';
-  apiURL = '/api/announcement';
+  private apiURL = 'http://localhost:8080/api/announcement';
+  // apiURL = '/api/announcement';
   private readonly token: string;
   private httpHeader: HttpHeaders;
 

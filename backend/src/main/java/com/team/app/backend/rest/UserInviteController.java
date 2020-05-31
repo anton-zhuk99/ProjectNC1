@@ -44,20 +44,18 @@ public class UserInviteController {
         return ResponseEntity.ok().body(userInviteService.getUserInvite(id));
     }
 
-    @PutMapping("/accept")
-    public ResponseEntity acceptUserInvite() {
-        Long id = securityService.getCurrentUser().getId();
+    @PutMapping("/{invite_id}")
+    public ResponseEntity acceptUserInvite(@PathVariable("invite_id") Long invite_id) {
         Map<String, String> model = new HashMap<>();
-        userInviteService.acceptUserInvite(id);
+        userInviteService.acceptUserInvite(invite_id);
         model.put("message", messageSource.getMessage("invite.updated", null, LocaleContextHolder.getLocale()));
         return ResponseEntity.ok(model);
     }
 
-    @DeleteMapping("/decline")
-    public ResponseEntity declineUserInvite() {
-        Long id = securityService.getCurrentUser().getId();
+    @DeleteMapping("/{invite_id}")
+    public ResponseEntity declineUserInvite(@PathVariable("invite_id") Long invite_id) {
         Map<String, String> model = new HashMap<>();
-        userInviteService.declineUserInvite(id);
+        userInviteService.declineUserInvite(invite_id);
         model.put("message", messageSource.getMessage("invite.decline", null, LocaleContextHolder.getLocale()));
         return ResponseEntity.ok(model);
     }

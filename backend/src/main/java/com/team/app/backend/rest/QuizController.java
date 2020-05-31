@@ -152,12 +152,6 @@ public class QuizController {
         return quizService.searchQuizes(quizCategoryDto.getCategories(),quizCategoryDto.getTitle(),quizCategoryDto.getDateFrom(),quizCategoryDto.getDateTo(),quizCategoryDto.getUser());
     }
 
-
-    @GetMapping("/quiz/search/{searchstring}")
-    public List<Quiz> searchQuizes(@PathVariable("searchstring") String searchstring) {
-        return quizService.searchQuizes(searchstring);
-    }
-
     @PostMapping("/quiz/approve")
     public ResponseEntity approveQuiz(@RequestBody Quiz quiz) {
             quizService.approveQuiz(quiz);

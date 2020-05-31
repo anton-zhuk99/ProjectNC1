@@ -31,7 +31,7 @@ export class SettingsService {
       tap(response => {this.notificationSettings = response;}))
   }
   getActivitiesSettings(userId: number) {
-    return  this.http.get<Setting[]>(this.apiURL + '/activity/settings/',
+    return  this.http.get<Setting[]>(this.apiURL + '/activity/get-settings',
       { headers: new HttpHeaders()
           .set('Authorization',  `Bearer_${this.userService.getToken()}`)}).pipe(
       tap(response => {this.activitySettings = response;}))
@@ -42,7 +42,7 @@ export class SettingsService {
           .set('Authorization',  `Bearer_${this.userService.getToken()}`)})
   }
   setActivitySetting(setting) {
-    return  this.http.post<Setting>(this.apiURL + '/activity/settings', setting,
+    return  this.http.post<Setting>(this.apiURL + '/activity/set-settings', setting,
       { headers: new HttpHeaders()
           .set('Authorization',  `Bearer_${this.userService.getToken()}`)})
   }
